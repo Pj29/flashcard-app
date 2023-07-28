@@ -38,7 +38,7 @@ function CreateDeck() {
         </ol>
       </nav>
       <form onSubmit={submitHandler}>
-        <h1 classname="my-4 text-center">Create Deck</h1>
+        <h1 className="my-4 text-center">Create Deck</h1>
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input

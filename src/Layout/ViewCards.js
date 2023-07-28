@@ -34,7 +34,7 @@ function ViewCards({ cards = [] }) {
 
   const deleteCardHandler = async (cardId) => {
     const response = window.confirm(
-      "Delete this car? You will not be able to recover it."
+      "Delete this card? You will not be able to recover it."
     );
     if (response) {
       await deleteCard(cardId);

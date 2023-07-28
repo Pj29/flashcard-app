@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { readDeck } from "../utils/api";
-import Breadcrumb from "./Breadcrumb";
 
 function Study() {
   // define initial state
@@ -94,10 +93,26 @@ function Study() {
     }
   }
 
+  const breadcrumb = (
+    <nav aria-label="breadcrumb">
+      <ol className="breadcrumb">
+        <li className="breadcrumb-item">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="breadcrumb-item">
+          <Link to={`/decks/${deckId}`}>{deck.name}</Link>
+        </li>
+        <li className="breadcrumb-item active" aria-current="page">
+          Study
+        </li>
+      </ol>
+    </nav>
+  );
+
   if (deck.cards.length <= 2) {
     return (
       <>
-        <Breadcrumb deck={deck} />
+        {breadcrumb}
         <div className="card">
           <div className="card-body">
             <h1>{deck.name}: Study</h1>
@@ -118,7 +133,7 @@ function Study() {
   } else {
     return (
       <>
-        <Breadcrumb deck={deck} />
+        {breadcrumb}
         <h1 className="text-center">Currently Studying: {deck.name} </h1>
         <div className="card">
           <div className="card-body">
