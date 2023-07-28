@@ -37,6 +37,43 @@ function CreateDeck() {
           <li className="breadcrumb-item active">Create Deck</li>
         </ol>
       </nav>
+      <form onSubmit={submitHandler}>
+        <h1 classname="my-4 text-center">Create Deck</h1>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            name="name"
+            id="name"
+            className="form-control form-control-lg"
+            type="text"
+            placeholder="Deck name"
+            onChange={onChangeHandler}
+            value={deckFormData.name}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            className="form-control"
+            id="description"
+            name="description"
+            rows="5"
+            placeholder="Brief description of the deck"
+            onChange={onChangeHandler}
+            value={deckFormData.description}
+            required
+          />
+        </div>
+        <Link to="/" className="mr-2">
+          <button type="button" className="btn btn-secondary">
+            Cancel
+          </button>
+        </Link>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </>
   );
 }

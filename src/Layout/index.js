@@ -7,7 +7,7 @@ import Study from "./Study";
 import CreateDeck from "./CreateDeck";
 import Deck from "./Deck";
 import EditDeck from "./EditDeck";
-import AddCard from "./AddCard";
+import CreateCard from "./CreateCard";
 import EditCard from "./EditCard";
 
 function Layout() {
@@ -43,7 +43,7 @@ function Layout() {
 
           {/* Add Card Component */}
           <Route exact path="/decks/:deckId/cards/new">
-            <AddCard />
+            <CreateCard />
           </Route>
 
           {/* Edit Card Component */}

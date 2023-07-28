@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useHistory, Link } from "react-router-dom";
 
 function CardForm({ deckId, newCardData, changeHandler, submitHandler }) {
