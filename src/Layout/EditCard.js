@@ -91,7 +91,7 @@ function EditCard() {
         </ol>
       </nav>
 
-      <h1 className="text-center">Edit Card</h1>
+      <h1 className="mb-4">Edit Card</h1>
 
       <CardForm
         changeHandler={changeHandler}

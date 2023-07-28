@@ -10,12 +10,12 @@ function Card({ card, url, deleteCardHandler }) {
           <div className="col-5">{card.front}</div>
           <div className="col-5">
             {card.back}
-            <div>
+            <div className="d-flex justify-content-end mt-2">
               <Link to={`${url}/cards/${card.id}/edit`}>
-                <button className="btn btn-secondary m-3">Edit</button>
+                <button className="btn btn-secondary">Edit</button>
               </Link>
               <button
-                className="btn btn-danger m-3"
+                className="btn btn-danger ml-2"
                 onClick={() => deleteCardHandler(card.id)}
               >
                 Delete Card
@@ -34,7 +34,7 @@ function ViewCards({ cards = [] }) {
 
   const deleteCardHandler = async (cardId) => {
     const response = window.confirm(
-      "Delete this card? You will not be able to recover it."
+      "Delete this card?\n\nYou will not be able to recover it."
     );
     if (response) {
       await deleteCard(cardId);
@@ -45,8 +45,8 @@ function ViewCards({ cards = [] }) {
   return (
     <>
       <div className="card">
-        <div className="card-header text-center">
-          <h2 className="text-center">Cards</h2>
+        <div className="card-header">
+          <h2>Cards</h2>
         </div>
       </div>
       {cards.map((card, index) => (

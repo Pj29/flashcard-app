@@ -70,7 +70,7 @@ function Study() {
     if (currentIndex === cards.length - 1) {
       // ask if user wants to restart and study again at the end of deck
       const response = window.confirm(
-        "Do you want to restart the deck and study again?"
+        'Restart cards?\n\nClick "cancel" to return to the homepage'
       );
       // if response is true reset currentIndex to 0
       if (response) {
@@ -118,8 +118,9 @@ function Study() {
             <h1>{deck.name}: Study</h1>
             <h2 className="card-title">Not enough cards.</h2>
             <p className="card-text">
-              You need at least 3 cards to study. Please add more cards to this
-              deck.
+              You need at least 3 cards to study. There are {deck.cards.length}
+              {" cards "}
+              in this deck.
             </p>
             <Link to={`/decks/${deckId}/cards/new`}>
               <button type="button" className="btn btn-primary">
@@ -134,7 +135,7 @@ function Study() {
     return (
       <>
         {breadcrumb}
-        <h1 className="text-center">Currently Studying: {deck.name} </h1>
+        <h1 className="text-center">Study: {deck.name} </h1>
         <div className="card">
           <div className="card-body">
             <h4 className="card-title">

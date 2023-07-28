@@ -69,7 +69,7 @@ function CreateCard() {
           <li className="breadcrumb-item active">Edit Deck</li>
         </ol>
       </nav>
-      <h1 className="my-4 text-center">
+      <h1 className="my-4">
         {deck.name}: <span>Add Card</span>
       </h1>
       <CardForm
