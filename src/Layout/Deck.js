@@ -2,23 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory, Route } from "react-router-dom";
 import { deleteDeck, readDeck } from "../utils/api";
 import ViewCards from "./ViewCards";
-
-function Breadcrumb({ deck }) {
-  if (!deck) {
-    return "Loading...";
-  }
-
-  return (
-    <nav aria-label="breadcrumb">
-      <ol className="breadcrumb">
-        <li className="breadcrumb-item">
-          <Link to="/">Home</Link>
-        </li>
-        <li className="breadcrumb-item active">{deck.name}</li>
-      </ol>
-    </nav>
-  );
-}
+import Breadcrumb from "./Breadcrumb";
 
 function Deck() {
   const { deckId } = useParams();
