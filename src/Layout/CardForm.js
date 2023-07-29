@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 
+// Card form to be imported in EditCard and CreateCard component
 function CardForm({ deckId, newCardData, changeHandler, submitHandler }) {
   const history = useHistory();
 

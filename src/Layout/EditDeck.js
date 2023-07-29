@@ -2,19 +2,21 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { readDeck, updateDeck } from "../utils/api";
 
+// component to edit an existing deck
 function EditDeck() {
   const initialState = { name: "", description: "" };
   const [editDeckFormData, setEditDeckFormData] = useState(initialState);
 
   const { deckId } = useParams();
   const history = useHistory();
-
+  // runs when the component mounts and when deckId changes
   useEffect(() => {
     const abortController = new AbortController();
     async function loadDeck() {
+      // fetch data with loadDeck using readDeck inside
       try {
         const loadedDeck = await readDeck(deckId, abortController.signal);
-        setEditDeckFormData(loadedDeck);
+        setEditDeckFormData(loadedDeck); // update the state
       } catch (error) {
         if (error.name !== "AbortError") {
           throw error;
@@ -29,19 +31,20 @@ function EditDeck() {
     };
   }, [deckId]);
 
+  // handles changes in the form fields
   const changeHandler = ({ target }) => {
     setEditDeckFormData((currentState) => ({
       ...currentState,
       [target.name]: target.value,
     }));
   };
-
+  // this handler is called when the form is submitted
   const submitHandler = async (event) => {
     event.preventDefault();
-    const response = await updateDeck(editDeckFormData);
-    history.push(`/decks/${response.id}`);
+    const response = await updateDeck(editDeckFormData); // request to update the deck using updateDeck
+    history.push(`/decks/${response.id}`); // navigate to the deck's route
   };
-
+  // render the JSX
   return (
     <>
       <nav>

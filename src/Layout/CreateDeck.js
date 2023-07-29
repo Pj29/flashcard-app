@@ -3,16 +3,19 @@ import { Link, useHistory } from "react-router-dom";
 import { createDeck } from "../utils/api";
 
 // component for creating a new deck
+// form data is handled by react state management
 function CreateDeck() {
+  // define the initial state of the deck object
   const initialFormState = {
     name: "",
     description: "",
   };
 
-  const [deckFormData, setDeckFormData] = useState(initialFormState);
+  const [deckFormData, setDeckFormData] = useState(initialFormState); // state vars, holds the form data for a new deck
 
-  const history = useHistory();
+  const history = useHistory(); // hook into history stack
 
+  // update state whenever the user input changes
   const onChangeHandler = ({ target }) => {
     setDeckFormData((currentDeckFormData) => ({
       ...currentDeckFormData,
@@ -20,13 +23,14 @@ function CreateDeck() {
     }));
   };
 
+  // invoke handler when the form is submitted, using createDeck util fn
   const submitHandler = async (event) => {
     event.preventDefault();
     const response = await createDeck(deckFormData);
     setDeckFormData(initialFormState);
     history.push(`/decks/${response.id}`);
   };
-
+  // render JSX for breadcrumb, heading and form
   return (
     <>
       <nav>

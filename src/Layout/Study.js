@@ -4,36 +4,25 @@ import { readDeck } from "../utils/api";
 
 function Study() {
   // define initial state
+  // deck is obj representing a deck of cards, initally filled with placeholder name and empty array of cards
   const initialState = {
-    // deck is obj representing a deck of cards, initally filled with
-    // placeholder name and empty array of cards
     deck: { name: "loading...", cards: [] },
-    // boolean representing if the card is flipped or not, initially
-    // set to false in order to show the question side
-    isCardFlipped: false,
-    // current index of card in the deck being displayed, initially set to 0
-    currentIndex: 0,
+    isCardFlipped: false, // boolean representing if the card is flipped or not, initially set to false in order to show the question side
+    currentIndex: 0, // current index of card in the deck being displayed, initially set to 0
   };
-  // inital value of studyState set to initialState
-  const [studyState, setStudyState] = useState(initialState);
-  // destructure studyState for easier property access
-  const { deck, isCardFlipped, currentIndex } = studyState;
-  // extract the deck ID to use in URL when component mounts
-  const { deckId } = useParams();
-  // load the deck for the study session whenever the deck ID changes
+
+  const [studyState, setStudyState] = useState(initialState); // inital value of studyState set to initialState
+  const { deck, isCardFlipped, currentIndex } = studyState; // destructure studyState for easier property access
+  const { deckId } = useParams(); // extract the deck id to use in url when component mounts
+  // load the deck for the study session whenever the deck id changes
   useEffect(() => {
-    // abort controller here is for cancelling the API call if the component unmounts before the call has resolved
-    const abortController = new AbortController();
-    // load deck to fetch the deck
+    const abortController = new AbortController(); // abort controller here is for cancelling the api call if the component unmounts before the call has resolved
     async function loadDeck() {
-      // if readDeck promise resolves the deck is dded to state
       try {
         const loadedDeck = await readDeck(deckId, abortController.signal);
         setStudyState((currentState) => ({
-          // spread into new obj to keep the existing state and
-          // update deck property with the newly loaded deck
           ...currentState,
-          deck: loadedDeck,
+          deck: loadedDeck, // spread into new obj to keep the existing state and update deck property with the newly loaded deck
         }));
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -46,18 +35,14 @@ function Study() {
     return () => {
       abortController.abort();
     };
-    // dependency array, effect will run whenever the deck ID changes
-  }, [deckId]);
+  }, [deckId]); // dependency array, effect will run whenever the deck id changes
 
   // changes the isCardFlipped state prop in the studyState
   function flipCardHandler() {
-    // modify the studyState obj
     setStudyState({
-      // use spread op to create a new obj that contains props of the current
-      // studyState obj
-      ...studyState,
-      // prop from studyState obj above, tells whether card is flipped or not
-      isCardFlipped: !studyState["isCardFlipped"],
+      // modify the studyState obj
+      ...studyState, // use spread op to create a new obj that contains props of the current studyState obj
+      isCardFlipped: !studyState["isCardFlipped"], // prop from studyState obj above, tells whether card is flipped or not
     });
   }
 
@@ -66,33 +51,27 @@ function Study() {
     const { cards } = deck;
     // check whether the current card is the last card in the cards array
     // currentIndex is the position of the current card in the cards array
-    // cards.length - 1 means we are at the last card
     if (currentIndex === cards.length - 1) {
-      // ask if user wants to restart and study again at the end of deck
+      // cards.length - 1 means we are at the last card
       const response = window.confirm(
-        'Restart cards?\n\nClick "cancel" to return to the homepage'
+        'Restart cards?\n\nClick "cancel" to return to the homepage' // ask if user wants to restart and study again at the end of deck
       );
       // if response is true reset currentIndex to 0
       if (response) {
-        // use spread op to create new object, copy all props from current state
         setStudyState((currentState) => ({
-          ...currentState,
+          ...currentState, // use spread op to create new object, copy all props from current state
           currentIndex: 0,
         }));
       }
-      // if we are not on the last card increment currentIndex by 1, moving to next card in deck
-      // reset the card flipped status
     } else {
       setStudyState((currentState) => ({
-        // by creating a new state object, copying all properties from the current state, incrementing the currentIndex property by 1, and setting isCardFlipped to false
-        // this means moving to the next card and showing its question side
         ...currentState,
         currentIndex: currentState.currentIndex + 1,
         isCardFlipped: false,
       }));
     }
   }
-
+  // bind a breadcrumb JSX inside a variable
   const breadcrumb = (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">
@@ -108,7 +87,7 @@ function Study() {
       </ol>
     </nav>
   );
-
+  // JSX to return if there are less than 3 cards in the deck
   if (deck.cards.length <= 2) {
     return (
       <>

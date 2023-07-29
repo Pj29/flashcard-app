@@ -4,29 +4,30 @@ import { deleteDeck, readDeck } from "../utils/api";
 import ViewCards from "./ViewCards";
 
 function Deck() {
+  // get deck id parameter from the route, manipulate history and set deck state var with loading state
   const { deckId } = useParams();
   const history = useHistory();
   const [deck, setDeck] = useState({ name: "loading...", cards: [] });
-
+  // runs loadDeck when the component mounts and whenever deckId changes in dependency array
   useEffect(() => {
     async function loadDeck() {
-      const response = await readDeck(deckId);
+      const response = await readDeck(deckId); // loadDeck makes an api call using readDeck util fn
       setDeck(() => ({ ...response }));
     }
 
     loadDeck();
   }, [deckId]);
-
+  // handler to delete a deck, asks for user confirmation
   const deleteHandler = async (deckId) => {
     const confirmation = window.confirm(
       "Delete this deck? You will not be able to recover it."
     );
     if (confirmation) {
       await deleteDeck(deckId);
-      history.push("/");
+      history.push("/"); // redirect the user to the homepage after a delete
     }
   };
-
+  // render nav, a card with the deck info and event buttons as well as ViewCards component which displays cards in a deck
   return (
     <>
       <nav aria-label="breadcrumb">

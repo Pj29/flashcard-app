@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import { listDecks, deleteDeck } from "../utils/api";
 
 function Home() {
-  // initialize state var decks to empty array
-  const [decks, setDecks] = useState([]);
+  const [decks, setDecks] = useState([]); // initialize state var decks to empty array
   // when component is mounted run the function inside useEffect
   useEffect(() => {
-    // fetchDecks retrieves the list of decks from the API using listDecks
     const fetchDecks = async () => {
+      // fetchDecks retrieves the list of decks from the API using listDecks
       const deckResponse = await listDecks();
-      // update decks state with the response
-      setDecks(deckResponse);
+      setDecks(deckResponse); // update decks state with the response
     };
     fetchDecks();
   }, []);
@@ -21,13 +19,12 @@ function Home() {
     if (
       window.confirm("Delete this deck? You will not be able to recover it.")
     ) {
-      // call deleteDeck from API to delete the deck with matching ID
-      await deleteDeck(deckId);
-      // update the decks state by filtering out the deleted deck
-      const updatedDecks = decks.filter((deck) => deck.id !== deckId);
+      await deleteDeck(deckId); // call deleteDeck from API to delete the deck with matching id
+      const updatedDecks = decks.filter((deck) => deck.id !== deckId); // update the decks state by filtering out the deleted deck
       setDecks(updatedDecks);
     }
   };
+
   // render buttons for creating new deck, a list of all existing decks
   return (
     <div className="container">
